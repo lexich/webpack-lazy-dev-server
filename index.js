@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const service = require('./lib');
+const webpack = require('webpack');
 
 async function createServer(options) {
   // directory were located base entries
@@ -29,7 +30,10 @@ async function createServer(options) {
 
   const config = {
     ...options.config,
-    entry: addHotMiddleware(entryMap, host)
+    entry: addHotMiddleware(entryMap, host),
+    plugins: options.config.plugins.concat([
+      new webpack.HotModuleReplacementPlugin()
+    ])
   };
   const publicPath = config.output.publicPath;
   if (publicPath) {
@@ -37,10 +41,11 @@ async function createServer(options) {
   }
 
   return service.configureApp(express(), {
-    SRC: SRC,
-    config: config,
-    packsDirectory: packsDirectory,
-    publicPath: publicPath,
+    webpack,
+    SRC,
+    config,
+    packsDirectory,
+    publicPath,
   });
 }
 

@@ -31,7 +31,7 @@ async function createServer(options) {
   const config = {
     ...options.config,
     entry: addHotMiddleware(entryMap, host),
-    plugins: options.config.plugins.concat([
+    plugins: (options.config.plugins || []).concat([
       new webpack.HotModuleReplacementPlugin()
     ])
   };

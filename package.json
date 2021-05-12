@@ -1,13 +1,13 @@
 {
-  "name": "webpack-server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "webpack-lazy-dev-server",
+  "version": "0.0.1",
+  "description": "Lazy dev server for webpack",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",

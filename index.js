@@ -1,7 +1,8 @@
 const path = require('path');
 const express = require('express');
-const service = require('./lib');
 const webpack = require('webpack');
+
+const service = require('./lib');
 
 async function createServer(options) {
   // directory were located base entries
@@ -21,12 +22,20 @@ async function createServer(options) {
   }
 
   // new virtual directory for entries
-  const SRC = options.srcVirtual || path.join(process.cwd(), 'node_modules', '.cache', 'webpack-server');
+  const SRC = options.srcVirtual || path.join(process.cwd(), 'node_modules', '.cache', 'webpack-lazy-dev-server');
 
   const inputEntries = await service.loadEntries(packsDirectory, options.acceptFile);
   const entryMap = patchEntries(inputEntries, SRC);
 
-  await service.prepareEnv({ SRC, entryMap, code: options.code });
+  const virtualEntry = new service.VirtualEntry({
+    info: {},
+    code: options.code,
+    SRC,
+    packsDirectory,
+    entryMap,
+  });
+
+  await virtualEntry.prepareEnv();
 
   const config = {
     ...options.config,
@@ -40,12 +49,20 @@ async function createServer(options) {
     config.output.publicPath = host + publicPath;
   }
 
+  const compiler = webpack(config);
+  virtualEntry.setWriteFileAsyncNotify(
+    service.promisify(
+      compiler.inputFileSystem.fileSystem.writeFile,
+      compiler.inputFileSystem.fileSystem,
+    )
+  );
+
   return service.configureApp(express(), {
-    webpack,
-    SRC,
     config,
-    packsDirectory,
     publicPath,
+    compiler,
+    inputEntries,
+    virtualEntry
   });
 }
 

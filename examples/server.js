@@ -1,4 +1,4 @@
-const webpackServer = require('../');
+const webpackServer = require('../outDir');
 const path = require('path');
 webpackServer
   .createServer({

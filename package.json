@@ -2,7 +2,8 @@
   "name": "webpack-lazy-dev-server",
   "version": "0.0.1",
   "description": "Lazy dev server for webpack",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,10 +12,21 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "lodash": "^4.17.21",
     "mkdirp": "^1.0.4",
     "rimraf": "^3.0.2",
     "webpack": "^5.37.0",
     "webpack-dev-middleware": "^4.2.0",
     "webpack-hot-middleware": "^2.25.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "@types/lodash": "^4.14.169",
+    "@types/mkdirp": "^1.0.1",
+    "@types/rimraf": "^3.0.0",
+    "@types/webpack-dev-middleware": "^4.2.0",
+    "@types/webpack-hot-middleware": "^2.25.4",
+    "typescript": "^4.2.4"
   }
 }

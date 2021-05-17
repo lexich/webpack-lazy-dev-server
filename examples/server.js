@@ -1,4 +1,4 @@
-const webpackServer = require('../outDir');
+const webpackServer = require('../lib');
 const path = require('path');
 webpackServer
   .createServer({

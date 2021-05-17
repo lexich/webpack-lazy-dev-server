@@ -13,14 +13,15 @@ export interface ICreateServer {
   srcVirtual?: string;
   code?: string;
   acceptFile?: (val: string) => boolean;
+  configure?: (entryList: EntryList) => void;
 }
 
 export async function createServer({
   packsDirectory,
   host,
   code,
-
   srcVirtual,
+  configure,
   ...options
 }: ICreateServer) {
   // new virtual directory for entries
@@ -43,7 +44,7 @@ export async function createServer({
     host,
     ...options,
   });
-
+  configure?.(entryList);
   return configureApp(express(), {
     config,
     entryList,

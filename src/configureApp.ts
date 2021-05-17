@@ -36,9 +36,9 @@ function configureAdmin(
     const body = entryList.entries.map((entry) => {
       return `<li><label><input type='checkbox' ${
         entry.state === "fill" ? "checked" : ""
-      } data-entry="${entry.name}" onchange="send(this)" />${
+      } data-entry="${entry.name}" onchange="send(this)" /><a href="${entry.url}">${
         entry.name
-      }</label></li>`;
+      }</a></label></li>`;
     });
 
     res.send(`<html lang="en">

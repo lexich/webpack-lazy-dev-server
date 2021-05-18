@@ -5,6 +5,8 @@ import express from "express";
 import interceptor from "./interceptor";
 import type { Configuration, Compiler } from "webpack";
 import EntryList from "./EntryList";
+import fs from 'fs';
+import path from 'path';
 
 export interface IConfigureAdmin {
   entryList: EntryList;
@@ -14,6 +16,10 @@ function configureAdmin(
   app: express.Application,
   { entryList }: IConfigureAdmin
 ) {
+  const CSS_FRAMEWORK = fs.readFileSync(
+    path.resolve('node_modules', 'mvp.css', 'mvp.css')
+  ).toString();
+
   app.post("/entry", (req, res, next) => {
     if (!req.body) {
       return next(new Error("Invalid request"));
@@ -46,10 +52,17 @@ function configureAdmin(
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>admin: webpack-lazy-dev-server </title>
+      <style>${CSS_FRAMEWORK}</style>
     </head>
     <body>
+    <header>
+      <h1>Admin panel</h1>
+    </header>
+    <article>
+    <h2>List of using entries</h2>
     <ul>${body.join("")}</ul>
+    </article>
     <script>
     function send(e) {
       var entry = e.dataset.entry;

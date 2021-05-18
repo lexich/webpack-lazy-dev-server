@@ -15,6 +15,7 @@
     "express": "^4.17.1",
     "lodash": "^4.17.21",
     "mkdirp": "^1.0.4",
+    "mvp.css": "^1.7.3",
     "rimraf": "^3.0.2",
     "webpack": "^5.37.0",
     "webpack-dev-middleware": "^4.2.0",

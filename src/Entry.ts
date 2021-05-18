@@ -36,8 +36,8 @@ export class Entry {
   readonly name = this.options.name;
   readonly nameJS = `${this.name}.js`;
   readonly relPath = path.relative(
-    path.dirname(path.join(this.options.SRC, this.nameJS)),
-    path.join(this.options.packsDirectory, this.nameJS)
+    path.dirname(path.join(this.options.SRC, this.name)),
+    path.join(this.options.packsDirectory, this.name)
   );
 
   readonly nameJS_HOT = `${this.name}_$.js`;

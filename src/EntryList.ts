@@ -33,6 +33,7 @@ export default class EntryList {
     const instance = new EntryList(options);
     const entriesConfig = await loadEntries(
       options.packsDirectory,
+      [],
       options.acceptFile
     );
     const { compiler, config } = await instance.setup({ entriesConfig });

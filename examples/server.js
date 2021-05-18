@@ -3,7 +3,10 @@ const path = require('path');
 webpackServer
   .createServer({
     packsDirectory: path.join(__dirname, 'packs'),
-    host: 'http://localhost:4000',
+    host: 'http://localhost:4321',
+    configure: entryList => {
+      entryList.entries.forEach(entry => entry.create('fill'))
+    },
     config: {
       mode: 'development',
       context: __dirname,
@@ -29,5 +32,5 @@ webpackServer
       </body>
       </html>`).end();
     })
-    app.listen(4000, () => console.log('Example app listening on port 4000!'));
+    app.listen(4321, () => console.log('Example app listening on port 4321!'));
   });

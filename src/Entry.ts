@@ -1,13 +1,14 @@
 import fs from "fs";
 import path from "path";
+import mkdirp from "mkdirp";
 import { promisify } from "util";
 
 const writeFileAsync = promisify(fs.writeFile);
 
-const TEMPATE_HOT = (key: string) => `import fn from './$_${key}';
+const TEMPATE_HOT = (key: string) => `import fn from './${key}';
 fn();
 if (module.hot) {
-  module.hot.accept('./$_${key}', () => {
+  module.hot.accept('./${key}', () => {
     fn();
   });
 }`;
@@ -33,20 +34,21 @@ export interface IEntryOptions {
 export class Entry {
   public state?: "empty" | "fill";
   readonly name = this.options.name;
+  readonly nameJS = `${this.name}.js`;
   readonly relPath = path.relative(
-    this.options.SRC,
-    path.join(this.options.packsDirectory, this.name)
+    path.dirname(path.join(this.options.SRC, this.nameJS)),
+    path.join(this.options.packsDirectory, this.nameJS)
   );
 
-  readonly nameJS = `${this.name}.js`;
+  readonly nameJS_HOT = `${this.name}_$.js`;
   readonly url = path.join(this.options.publicPath, this.nameJS);
-  readonly path = path.join(this.options.SRC, `$_${this.name}.js`);
+  readonly path = path.join(this.options.SRC, this.nameJS_HOT);
 
   private readonly TEMPLATE_ROOT_REQUIRE =
     this.options.TEMPLATE_ROOT_REQUIRE?.(this.relPath) ??
     TEMPLATE_ROOT_REQUIRE(this.relPath);
   private readonly TEMPATE_HOT =
-    this.options.TEMPATE_HOT?.(this.nameJS) ?? TEMPATE_HOT(this.nameJS);
+    this.options.TEMPATE_HOT?.(path.basename(this.nameJS_HOT)) ?? TEMPATE_HOT(path.basename(this.nameJS_HOT));
   private readonly TEMPLATE_ROOT =
     this.options.TEMPLATE_ROOT?.(this.options.code ?? "") ??
     TEMPLATE_ROOT(this.options.code ?? "");
@@ -66,7 +68,10 @@ export class Entry {
 
   createHot(): Promise<void> {
     const filepath = path.join(this.options.SRC, this.nameJS);
-    return this.writeFileAsyncNotify(filepath, this.TEMPATE_HOT);
+    const hotFolder = path.dirname(filepath);
+    return mkdirp(hotFolder).then(() =>
+      this.writeFileAsyncNotify(filepath, this.TEMPATE_HOT)
+    );
   }
 
   create(state: "empty" | "fill"): Promise<void> {

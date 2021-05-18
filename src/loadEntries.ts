@@ -7,6 +7,7 @@ const readdirAsync = promisify(fs.readdir);
 
 export default function loadEntries(
   dir: string,
+  rootDirs: string[] = [],
   acceptFile?: (path: string) => boolean
 ): Promise<Record<string, string>> {
   const result: Record<string, string> = {};
@@ -17,7 +18,7 @@ export default function loadEntries(
         return statAsync(filePath)
           .then((stat) => {
             if (stat.isDirectory()) {
-              return loadEntries(filePath, acceptFile).then((res) => {
+              return loadEntries(filePath, rootDirs.concat(file), acceptFile).then((res) => {
                 Object.assign(result, res);
                 return;
               });
@@ -26,7 +27,8 @@ export default function loadEntries(
               if (isEntry) {
                 const ext = path.extname(filePath);
                 const name = path.basename(filePath, ext);
-                result[name] = filePath;
+                const fullName = path.join(...rootDirs.concat(name));
+                result[fullName] = filePath;
               }
               return;
             }

@@ -18,6 +18,7 @@ export interface IEntryListOptions {
   host: string;
   config: webpack.Configuration;
   acceptFile?: (val: string) => boolean;
+  hotMiddlewareOptions?: Record<string, string>;
 }
 
 export default class EntryList {
@@ -57,7 +58,7 @@ export default class EntryList {
 
     const config = {
       ...this.options.config,
-      entry: addHotMiddleware(entryMap, host),
+      entry: addHotMiddleware(entryMap, host, this.options.hotMiddlewareOptions),
       plugins: (this.options.config.plugins || []).concat([
         new webpack.HotModuleReplacementPlugin(),
       ]),

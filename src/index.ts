@@ -14,6 +14,7 @@ export interface ICreateServer {
   code?: string;
   acceptFile?: (val: string) => boolean;
   configure?: (entryList: EntryList) => void;
+  hotMiddlewareOptions?: Record<string, string>;
 }
 
 export async function createServer({

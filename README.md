@@ -24,4 +24,6 @@ in our example it can be
 > http://localhost:4000/public/entry.js
 if we have file `packs/entry.js` and in webpack config you define `output.publicPath` as `public`.
 
-Also there is admin panel for precompiled entries. It available on `http://localhost:4000/admin`.
+Also there is admin panel for precompiled entries. It will be available on `http://localhost:4000/admin`.
+
+[Code examples](https://github.com/lexich/webpack-lazy-dev-server)

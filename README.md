@@ -2,6 +2,11 @@
 
 Webpack server which allow compile entries on demand.
 
+```
+npm install webpack-lazy-dev-sever
+```
+
+
 ```js
 const webpackServer = require('webpack-lazy-dev-server');
 const PORT = 4000;

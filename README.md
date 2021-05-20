@@ -1,9 +1,10 @@
-# Webpack-lazy-dev-sever
+# Webpack-lazy-dev-server
 
 Webpack server which allow compile entries on demand.
 
+[![NPM version](https://badge.fury.io/js/webpack-lazy-dev-server.svg)](http://badge.fury.io/js/webpack-lazy-dev-server)
 ```
-npm install webpack-lazy-dev-sever
+npm install webpack-lazy-dev-server
 ```
 
 

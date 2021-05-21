@@ -1,6 +1,6 @@
 {
   "name": "webpack-lazy-dev-server",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Lazy dev server for webpack",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

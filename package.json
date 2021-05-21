@@ -8,9 +8,17 @@
     "build": "rm -rf lib && tsc",
     "release": "npm run build && standard-version"
   },
-  "author": "",
+  "bin": {
+    "webpack-lazy-dev-server": "./bin/cli"
+  },
+  "author": {
+    "name": "Efremov Alexey",
+    "email": "lexich121@gmail.com"
+  },
   "license": "MIT",
   "dependencies": {
+    "boxen": "^5.0.1",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
@@ -19,7 +27,8 @@
     "rimraf": "^3.0.2",
     "webpack": "^5.37.0",
     "webpack-dev-middleware": "^4.2.0",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "yargs": "^17.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",
@@ -29,6 +38,7 @@
     "@types/rimraf": "^3.0.0",
     "@types/webpack-dev-middleware": "^4.2.0",
     "@types/webpack-hot-middleware": "^2.25.4",
+    "@types/yargs": "^17.0.0",
     "standard-version": "^9.3.0",
     "typescript": "^4.2.4"
   }

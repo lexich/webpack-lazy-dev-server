@@ -7,16 +7,7 @@ webpackServer
     configure: entryList => {
       entryList.entries.forEach(entry => entry.create('fill'))
     },
-    config: {
-      mode: 'development',
-      context: __dirname,
-      output: {
-        filename: '[name].js',
-        path: __dirname + '/dist',
-        hotUpdateChunkFilename: 'js/[id]-[fullhash].hot-update.js',
-        publicPath: '/',
-      }
-    },
+    config: require('./webpack.config'),
   }).then(app => {
     app.get('/', (req, res) => {
       res.send(`<!DOCTYPE html>
